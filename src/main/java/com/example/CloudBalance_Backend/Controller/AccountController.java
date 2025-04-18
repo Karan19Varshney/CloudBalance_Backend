@@ -24,7 +24,7 @@ public class AccountController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN','READ_ONLY')")
+    @PreAuthorize("hasAnyRole('ADMIN','READ_ONLY','CUSTOMER')")
     public List<Account> getAllAccounts() {
         return accountService.getAllAccounts();
     }
@@ -35,13 +35,6 @@ public class AccountController {
         Account createdAccount = accountService.createAccount(accountDTO);
         return new ResponseEntity<>(createdAccount, HttpStatus.OK);
     }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'READ_ONLY','CUSTOMER')")
-    public ResponseEntity<AccountDTO> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(accountService.getAccountById(id));
-    }
-
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
