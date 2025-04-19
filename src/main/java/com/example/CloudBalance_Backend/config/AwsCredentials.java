@@ -11,9 +11,9 @@ import software.amazon.awssdk.services.sts.model.Credentials;
 
 import java.util.UUID;
 
-public class STSCredentialUtil {
+public class AwsCredentials {
 
-    public AwsCredentialsProvider getSessionCredentials(String roleArn) {
+    public static AwsCredentialsProvider getSessionCredentials(String roleArn) {
         StsClient stsClient = StsClient.create();
         AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
                 .roleArn(roleArn)
