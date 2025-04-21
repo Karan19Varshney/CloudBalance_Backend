@@ -4,7 +4,7 @@ import com.example.CloudBalance_Backend.DTO.LoginDTO;
 import com.example.CloudBalance_Backend.Model.BlacklistedToken;
 import com.example.CloudBalance_Backend.Model.User;
 import com.example.CloudBalance_Backend.Repository.BlacklistedTokenRepository;
-import com.example.CloudBalance_Backend.Repository.User_Repository;
+import com.example.CloudBalance_Backend.Repository.UserRepository;
 import com.example.CloudBalance_Backend.Security.Jwt.JwtUtils;
 import com.example.CloudBalance_Backend.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     private BlacklistedTokenRepository blacklistedTokenRepository;
 
     @Autowired
-    private User_Repository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public ResponseEntity<?> login(LoginDTO loginDTO) {

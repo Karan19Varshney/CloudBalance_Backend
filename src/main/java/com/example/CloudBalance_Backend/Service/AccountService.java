@@ -9,4 +9,5 @@ public interface AccountService {
     AccountDTO getAccountById(Long id);
     AccountDTO updateAccount(Long id, AccountDTO dto);
     Account createAccount(AccountDTO dto);
+    String getArnByAccountId(Long accountId);
 }

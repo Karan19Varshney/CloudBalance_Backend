@@ -6,7 +6,7 @@ import com.example.CloudBalance_Backend.Model.Account;
 import com.example.CloudBalance_Backend.Model.ERole;
 import com.example.CloudBalance_Backend.Model.User;
 import com.example.CloudBalance_Backend.Repository.AccountRepository;
-import com.example.CloudBalance_Backend.Repository.User_Repository;
+import com.example.CloudBalance_Backend.Repository.UserRepository;
 import com.example.CloudBalance_Backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private User_Repository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -80,6 +81,17 @@ public class UserServiceImpl implements UserService {
         user.setRole(ERole.valueOf(dto.getRole().toUpperCase()));
         if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        if (dto.getAccountIds() != null) {
+            if (dto.getAccountIds().isEmpty()) {
+                user.setAccounts(null); // Clear assigned accounts
+            } else {
+                Set<Account> assignedAccounts = dto.getAccountIds().stream()
+                        .map(accountId -> accountRepository.findById(accountId)
+                                .orElseThrow(() -> new RuntimeException("Account not found with ID: " + accountId)))
+                        .collect(Collectors.toSet());
+                user.setAccounts(assignedAccounts);
+            }
         }
 
         return userMapper.toDto(userRepository.save(user));
