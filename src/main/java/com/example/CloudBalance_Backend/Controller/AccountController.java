@@ -36,9 +36,4 @@ public class AccountController {
         return new ResponseEntity<>(createdAccount, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountDTO> updateUser(@PathVariable Long id, @Valid @RequestBody AccountDTO dto){
-        return ResponseEntity.ok(accountService.updateAccount(id, dto));
-    }
 }
