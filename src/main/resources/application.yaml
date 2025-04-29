@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: CloudBalance_Backend
+
+  snowflake:
+    url: jdbc:snowflake://YFYRZGG-BWB35436.snowflakecomputing.com/?db=aws&schema=cost&warehouse=SYSTEM$STREAMLIT_NOTEBOOK_WH
+    username: ro_user
+    password: fRe$her@b00tc@mp2025
+    driver-class-name: net.snowflake.client.jdbc.SnowflakeDriver
+
+  datasource:
+    jdbc-url: jdbc:mysql://localhost:3306/CloudBalance
+    username: root
+    password: karan
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+
+jwtUtil:
+  app:
+    jwtExpirationMs: 9000000
+    jwtSecret: "HelloMyNameIsKaranIamSEXYandFunnyatthesametimehfdiuashfjahsjfhiusadhjfhsaiudhifhakjsfhkj"
+
+#aws:
+#  region: ap-south-1
