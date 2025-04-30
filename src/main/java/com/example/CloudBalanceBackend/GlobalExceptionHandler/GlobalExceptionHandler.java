@@ -42,6 +42,12 @@ public class GlobalExceptionHandler {
         return buildError(HttpStatus.BAD_REQUEST, "Illegal Argument", ex.getMessage(), request);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalState(IllegalStateException ex, HttpServletRequest request) {
+        return buildError(HttpStatus.CONFLICT, "Conflict", ex.getMessage(), request); // 409
+    }
+
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleJsonParse(HttpMessageNotReadableException ex, HttpServletRequest request) {
         return buildError(HttpStatus.BAD_REQUEST, "Malformed JSON", ex.getMostSpecificCause().getMessage(), request);
