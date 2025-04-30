@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User_DTO createUser(User_DTO userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists");
+            throw new IllegalStateException("Email already exists");
         }
 
         ERole role = ERole.valueOf(userDto.getRole().toUpperCase());
